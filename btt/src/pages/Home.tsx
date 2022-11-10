@@ -13,23 +13,28 @@ const modes = [30, 45, 60];
 
 const Home = () => {
     const theme = useAppSelector(state => state.theme);
-    const [mode, setmode] = useState<number>(2);
+    const [mode, setmode] = useState<number>(5);
     const [writer, setwriter] = useState<boolean>(false);
     const [counter, setcounter] = useState<number>(0);
     const [pointer, setpointer] = useState<number>(0);
     const [para, setpara] = useState<string>("");
     const [paraArray, setArray] = useState<{character: string, status: number, pointerStatus: boolean} []>([{character: "", status: 1, pointerStatus: true}]);
     const [result, setresult] = useState<boolean>(false);
+    const [correctCharacters, setCorrectCharacters] = useState<number>(0);
+    const [totalTyped, setTotalTyped] = useState<number>(0);
+    const [accuracy, setAccuracy] = useState<number>(0.0);
+    const [wpm, setWpm] = useState<number>(0.0);
+
     let counterInterval : NodeJS.Timer;
 
     const handleMode = (mod: number) => {
+        setcounter(0);
         setmode(mod);
     }
     
     const writerToggler = () => {
         console.log(paraArray);
         setwriter((prev) => !prev);
-        setcounter(0);
     }
 
     const nextHandler = () => {
@@ -38,6 +43,8 @@ const Home = () => {
         setcounter(0);
         setresult(false);
         setwriter(true);
+        setCorrectCharacters(0);
+        setTotalTyped(0);
         let holdarray = [];
         for (let i = 0; i < para.length; i++){
             holdarray.push({character: para[i], status: 1, pointerStatus: false});
@@ -54,6 +61,10 @@ const Home = () => {
             return ;
         }
         let correct = para[pointerhelper];
+        setTotalTyped((prev) => prev + 1);
+        if (typed === correct){
+            setCorrectCharacters((prev) => prev + 1);
+        }
         if (typed === "Backspace"){
             let updated: {character: string, status: number, pointerStatus: boolean} [] = paraArray;
             if (pointerhelper === 0){
@@ -114,10 +125,16 @@ const Home = () => {
                 if (counter < mode){
                     setcounter((prev) => prev + 1);
                 }else{
+                    console.log(correctCharacters, totalTyped);
+                    let accurate = +(((correctCharacters*1.0)/totalTyped) * 100).toFixed(2);
+                    let minutes = counter/60;
+                    let wpmcal = +(((correctCharacters*1.0)/5)/minutes).toFixed(2);
+                    setWpm(wpmcal);
+                    setAccuracy(accurate);
                     setpointer(0);
                     clearInterval(counterInterval);
                     setwriter(false);
-                    setresult(true);        
+                    setresult(true);         
                 }
             }, 1000);
         }
@@ -154,11 +171,25 @@ const Home = () => {
                     <p onClick={writerToggler} style = {{textAlign: "center", margin: "auto", fontSize: "20px", backgroundColor: "grey", borderRadius: "15px", padding: "30px"}}>click here to start</p>
                 </Stack>
                 :
-                <Stack direction = "column">
-                    <Stack direction = "row">
-
+                <Stack direction = "column" spacing = "20px">
+                    <Stack direction = "row" justifyContent = "center" alignItems="center" spacing = "20px">
+                        {modes.map((x) => {
+                                return (
+                                    <Stack onClick = {() => {handleMode(x)}} style = {{cursor: "crosshair"}} justifyContent = "center" direction = "column" alignItems="center">{x}</Stack>
+                            )
+                        })}
                     </Stack>
-                    <Stack direction = "row">
+                    <Stack direction = "row" spacing = {2} justifyContent = "center" alignItems="center">
+                        <Stack direction = "column" >
+                            <Stack direction = "row" justifyContent="center">WPM</Stack>
+                            <Stack direction = "row" justifyContent="center">{wpm}</Stack>
+                        </Stack>
+                        <Stack direction = "column">
+                            <Stack direction = "row" justifyContent="center">Accuracy</Stack>
+                            <Stack direction = "row" justifyContent="center">{accuracy}</Stack>
+                        </Stack>
+                    </Stack>
+                    <Stack direction = "row" justifyContent = "center">
                         <NavigateNextIcon onClick = {nextHandler} />
                     </Stack>
                 </Stack>
