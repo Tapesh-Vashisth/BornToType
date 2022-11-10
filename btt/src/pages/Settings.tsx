@@ -5,12 +5,16 @@ import themeType from "../types/themetype";
 import fontType from "../types/fontType";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {SelectChangeEvent} from "@mui/material/Select";
+import themes from "../features/theme/themes";
+import {setTheme} from "../features/theme/themeSlice";
+
 
 const Settings = () => {
     const [fontSize, setFontSize] = useState<number>(26);
-    const [theme, setTheme] = useState<string>("");
+    const dispatch = useAppDispatch()
+    const [theme, setTheme] = useState<number>(1);
     const [fontFamily, setFontFamily] = useState<string>("");
- 
+    
     const storetheme = useAppSelector((state) => state.theme);
     
     const fontSizeHandler = (event: Event, newValue: number | number[]) => {
@@ -18,7 +22,7 @@ const Settings = () => {
     };
 
     const themeHandler = (event: SelectChangeEvent) => {
-        setTheme(event.target.value);
+        setTheme(Number(event.target.value));
     }
     
     const fontHandler = (event: SelectChangeEvent) => {
@@ -26,7 +30,7 @@ const Settings = () => {
     }
 
     const applyHandler = () => {
-        console.log(fontSize, theme, fontFamily);
+        console.log(fontSize, theme, themes, fontFamily);
     }
 
     return (
@@ -57,13 +61,11 @@ const Settings = () => {
                     <Grid item xs = {6}>
                         <Select
                         sx = {{width: "100%"}}
-                        value={theme}
+                        value={theme.toString()}
                         label="theme"
                         onChange={themeHandler}
                         >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={1}>dark</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>
@@ -80,9 +82,7 @@ const Settings = () => {
                         label="font-family"
                         onChange={fontHandler}
                         >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={"cursive"}>cursive</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>

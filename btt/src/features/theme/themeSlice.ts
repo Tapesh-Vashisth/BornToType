@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { ScriptTarget } from "typescript";
 import themeType from "../../types/themetype";
 
 const initialState: themeType = {
@@ -6,7 +7,7 @@ const initialState: themeType = {
     fontColor: "#F5F5F7",
     buttonbg: "blue",
     buttonfg: "green",
-    playgroundcolor: "darkBlue",
+    playgroundcolor: "green",
     right: "pink",
     wrong: "red",
     normal: "black" 
@@ -18,11 +19,11 @@ const themeSlice = createSlice({
     initialState,
     reducers: {
         setTheme: (state, action: PayloadAction<themeType>) => {
-            state.background = action.payload.background;
-            state.fontColor = action.payload.fontColor;
+            state = action.payload; 
         }
     }
 });
 
-export default themeSlice.reducer;
 export const {setTheme} = themeSlice.actions;
+
+export default themeSlice.reducer;

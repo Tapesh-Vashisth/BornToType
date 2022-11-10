@@ -2,6 +2,7 @@ import react, { useState } from "react";
 import { Stack } from '@mui/material';
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 const Auth = () => {
     const [login, setlogin] = useState<boolean>(true);
@@ -13,9 +14,13 @@ const Auth = () => {
         setinput(event.target.value);
     }
 
-    const submithandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const submithandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(name, email, password);
+        if (login){
+            const res = await axios.post("http://localhost:9494/bttServer/login", {email: email, password});
+        }else{
+            const res = await axios.post("http://localhost:9494/bttServer/signup", {name: name, email: email, password});
+        }
     }
 
     const modeToggler = () => {
