@@ -1,5 +1,4 @@
 package Main.Servlets.auth;
-
 import Main.database.Connect;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +25,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            System.out.println("hello");
             BufferedReader br = 
                  new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -66,9 +66,7 @@ public class LoginServlet extends HttpServlet {
                 }
             }catch (SQLException e){
                 System.out.println(e);
-            }
-            
-            
+            }     
     }
 
     @Override
