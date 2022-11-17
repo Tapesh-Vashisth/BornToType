@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import userAuthApi from "../../middleware/apis/userAuthApi";
 import { LoginCredentials, SignupCredentials } from "../../types/auth/authtypes";
 
@@ -66,6 +65,17 @@ const userSlice = createSlice({
         },
         setEmail: (state, action: PayloadAction <string>) => {
             state.email = action.payload;
+        },
+        checkIfLoggedIn:(state) => {
+            const checkUsername = localStorage.getItem("username")
+            const checkEmail = localStorage.getItem("email")
+            if (!checkEmail || !checkUsername){
+                return;
+            }
+            if (checkEmail && checkUsername){
+                state.email = checkEmail;
+                state.username = checkUsername;
+            }
         }
     },
     extraReducers(builder) {

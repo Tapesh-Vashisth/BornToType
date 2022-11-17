@@ -7,10 +7,13 @@ import { LoginCredentials, SignupCredentials } from "../types/auth/authtypes";
 import { userActions } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const Auth = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const authState = useSelector((state:RootState) => state.user)
     const [login, setlogin] = useState<boolean>(true);
     const [name, setname] = useState<string>('');
     const [email, setemail] = useState<string>('');
@@ -34,6 +37,8 @@ const Auth = () => {
             const res = await dispatch(userActions.loginThunk(sendData));
             if (userActions.loginThunk.fulfilled.match(res)){
                 navigate("/")
+                localStorage.setItem("username",authState.username)
+                localStorage.setItem("email",authState.email)
             }
             else{
                 alert("Invalid Credentials")
