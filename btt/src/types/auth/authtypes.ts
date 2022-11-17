@@ -1,9 +1,9 @@
-export interface Login {
+export interface LoginCredentials {
     email: string,
     password: string
 }
 
 
-export interface Signup extends Login {
+export interface SignupCredentials extends LoginCredentials {
     username: string
 }

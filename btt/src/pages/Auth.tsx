@@ -3,8 +3,14 @@ import { Stack } from '@mui/material';
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { LoginCredentials, SignupCredentials } from "../types/auth/authtypes";
+import { userActions } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../store/hooks";
 
 const Auth = () => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
     const [login, setlogin] = useState<boolean>(true);
     const [name, setname] = useState<string>('');
     const [email, setemail] = useState<string>('');
@@ -14,17 +20,38 @@ const Auth = () => {
         setinput(event.target.value);
     }
 
+    const modeToggler = () => {
+        setlogin(!login)
+    }
+
     const submithandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (login){
-            const res = await axios.post("http://localhost:9494/bttServer/login", {email: email, password});
+            const sendData:LoginCredentials = {
+                email:email,
+                password:password
+            }
+            const res = await dispatch(userActions.loginThunk(sendData));
+            if (userActions.loginThunk.fulfilled.match(res)){
+                navigate("/")
+            }
+            else{
+                alert("Invalid Credentials")
+            }
         }else{
-            const res = await axios.post("http://localhost:9494/bttServer/signup", {name: name, email: email, password});
+            const sendData:SignupCredentials = {
+                username:name,
+                email:email,
+                password:password
+            }
+            const res = await dispatch(userActions.signUpThunk(sendData));
+            if (userActions.loginThunk.fulfilled.match(res)){
+                modeToggler()
+            }
+            else{
+                alert("Invalid Credentials")
+            }
         }
-    }
-
-    const modeToggler = () => {
-        setlogin(!login)
     }
 
     return (
