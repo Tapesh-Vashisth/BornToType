@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserSessionsServlet</servlet-name>
-        <url-pattern>/UserSessionsServlet</url-pattern>
+        <url-pattern>/postUserSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
