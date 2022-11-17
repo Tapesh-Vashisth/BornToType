@@ -8,6 +8,10 @@
         <servlet-name>UserSessionsServlet</servlet-name>
         <servlet-class>Main.UserSessionsServlet.UserSessionsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>Main.Api.SettingsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>UserSessionsServlet</servlet-name>
         <url-pattern>/UserSessionsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/api/settings</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

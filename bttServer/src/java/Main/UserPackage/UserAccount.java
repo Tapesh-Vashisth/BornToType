@@ -1,7 +1,12 @@
 package Main.UserPackage;
 import Main.HelperPackage.HashPassword;
 
-class User{
+interface user{
+    public String changePassword(String ePassword);
+    public String changeEmail(String eEmail);
+}
+
+class User implements user{
     private String username;
     private String email;
     private String password;

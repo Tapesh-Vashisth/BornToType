@@ -1,5 +1,10 @@
 package Main.AuthPackage;
 import java.util.regex.*;;
+
+interface validate{
+    
+}
+
 class Validations {
     public static boolean emailValidation(String eEmail){
         Pattern emailRegexPattern = Pattern.compile("^[A-Z0-9+_.-]+@[A-Z.-]+$",Pattern.CASE_INSENSITIVE);
