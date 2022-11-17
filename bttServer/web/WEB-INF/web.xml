@@ -26,7 +26,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserSessionsServlet</servlet-name>
-        <url-pattern>/UserSessionsServlet</url-pattern>
+        <url-pattern>/postUserSession</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SettingsServlet</servlet-name>

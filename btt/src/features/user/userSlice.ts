@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import BASEURL from "../../middleware/baseurl";
 import axios from "axios";
+import userAuthApi from "../../middleware/apis/userAuthApi";
+import { LoginCredentials, SignupCredentials } from "../../types/auth/authtypes";
 
 interface state{
     username: string
@@ -20,49 +21,37 @@ const initialState: state = {
     error: ""
 }
 
-const apiIn = BASEURL + "login";
 
-interface credentialsin{
-    email: string
-    password: string
-}
-
-const fetchuser = createAsyncThunk("fetch/fetchuser", async (credentials: credentialsin, {rejectWithValue}) => {
+const loginThunk = createAsyncThunk("fetch/loginThunk", async (credentials: LoginCredentials, thunkApi) => {
     try {
-        const response = await axios.post(apiIn);
-        return response.data;
+        const response = await userAuthApi.userSignInApi(credentials);
+        const data = response.data;
+        return thunkApi.fulfillWithValue(data)
     } catch (err: any) {
-        return rejectWithValue(err);
+        return thunkApi.rejectWithValue(err);
     }
 })
 
 
-interface credentialsup{
-    username: string
-    email: string
-    password: string
-}
-
-const apiUp = BASEURL + "signup";
-
-const fetchupuser = createAsyncThunk("fetch/fetchupuser", async (credentials: credentialsup, {rejectWithValue}) => {
+const signUpThunk = createAsyncThunk("fetch/signUpThunk", async (credentials: SignupCredentials,thunkApi) => {
     try {
-        const response = await axios.post(apiUp);
-        return response.data;
+        const response = await userAuthApi.userSignUpApi(credentials);
+        const data = await response.data;
+        return thunkApi.fulfillWithValue(data)
         
     } catch (err: any) {
-        return rejectWithValue(err);
+        return thunkApi.rejectWithValue(err);
     }
 })
 
-const apiOut = BASEURL + "logout";
 
-const fetchoutuser = createAsyncThunk("fetch/fetchoutuser", async (credentials: credentialsup, {rejectWithValue}) => {
+const logoutThunk = createAsyncThunk("fetch/logoutThunk", async (_,thunkApi) => {
     try {
-        const response = await axios.get(apiOut);
-        return response.data;
+        const response = await userAuthApi.userSignOutApi()
+        const data = await response.data;
+        return thunkApi.fulfillWithValue(data)
     } catch (err: any) {
-        return rejectWithValue(err);
+        return thunkApi.rejectWithValue(err);
     }
 })
 
@@ -78,9 +67,36 @@ const userSlice = createSlice({
         setEmail: (state, action: PayloadAction <string>) => {
             state.email = action.payload;
         }
-    }
+    },
+    extraReducers(builder) {
+        builder.addCase(loginThunk.pending,(state)=>{
+            state.loading = true;
+        })
+        builder.addCase(loginThunk.fulfilled,(state,action)=>{
+            const incomingData = JSON.parse(JSON.stringify(action.payload))
+            return {...state,username:incomingData.username,email:incomingData.email,islogin:true,loading:false}
+        })
+        builder.addCase(loginThunk.rejected,(state,action)=>{
+            return {...state,error:action.error,loading:false}
+        })
+        builder.addCase(signUpThunk.pending,(state,action)=>{
+            state.loading = true;
+        })
+        builder.addCase(signUpThunk.fulfilled,(state,action)=>{
+            const incomingData = JSON.parse(JSON.stringify(action.payload))
+            return {...state,loading:false}
+        })
+        builder.addCase(signUpThunk.rejected,(state,action)=>{
+            return {...state,error:action.error,loading:false}
+        })
+    },
 });
 
 
 export default userSlice.reducer;
-export const {} = userSlice.actions;
+export const userActions = {
+    actions:userSlice.actions,
+    loginThunk:loginThunk,
+    logoutThunk:logoutThunk,
+    signUpThunk:signUpThunk
+}
