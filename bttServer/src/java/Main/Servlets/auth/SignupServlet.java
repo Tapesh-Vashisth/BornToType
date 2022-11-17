@@ -47,9 +47,9 @@ public class SignupServlet extends HttpServlet {
                 Auth credentials = new Auth(jsonObjectCode.get("name").toString(), jsonObjectCode.get("email").toString(), jsonObjectCode.get("password").toString());
                 System.out.println("hello");
                 
-                boolean first = true;//credentials.validateEmail();
+                boolean first = credentials.validateEmail();
                 
-                boolean second = true;//credentials.validatePassword();
+                boolean second = credentials.validatePassword();
                 System.out.println("hello");
                 
                 if (first == true && second == true){
@@ -62,6 +62,8 @@ public class SignupServlet extends HttpServlet {
                     int couter = stmt.executeUpdate();
                     
                     System.out.println(couter + " records inserted!");
+                }else{
+                    response.sendError(401, "invalid credentials");
                 }
             }catch (SQLException e){
                 System.out.println(e);

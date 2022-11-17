@@ -12,7 +12,7 @@ import {setTheme} from "../features/theme/themeSlice";
 const Settings = () => {
     const [fontSize, setFontSize] = useState<number>(26);
     const dispatch = useAppDispatch()
-    const [theme, setTheme] = useState<number>(1);
+    const [theme, setThemes] = useState<number>(1);
     const [fontFamily, setFontFamily] = useState<string>("");
     
     const storetheme = useAppSelector((state) => state.theme);
@@ -22,7 +22,7 @@ const Settings = () => {
     };
 
     const themeHandler = (event: SelectChangeEvent) => {
-        setTheme(Number(event.target.value));
+        setThemes(Number(event.target.value));
     }
     
     const fontHandler = (event: SelectChangeEvent) => {
@@ -30,7 +30,7 @@ const Settings = () => {
     }
 
     const applyHandler = () => {
-        console.log(fontSize, theme, themes, fontFamily);
+        dispatch(setTheme(themes[theme]));
     }
 
     return (
@@ -65,7 +65,8 @@ const Settings = () => {
                         label="theme"
                         onChange={themeHandler}
                         >
-                        <MenuItem value={1}>dark</MenuItem>
+                        <MenuItem value={0}>dark</MenuItem>
+                        <MenuItem value={1}>matrix</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>

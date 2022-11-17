@@ -4,7 +4,7 @@ const Terms = () => {
     return (
         <>
         
-            <header className="header">
+            <header className="header" style={{}}>
                 <img className="logo" src="images/typo_dot_com_logo.png" alt="logo" />
                 <h1>
                     Terms of Service
@@ -37,11 +37,6 @@ const Terms = () => {
                 <li>violates any person's right to privacy or publicity, or otherwise solicits, collects, or publishes data, including personal information and login information, about other Users without consent or for unlawful purposes in violation of any applicable international, federal, state, or local law, statute, ordinance.</li>
             </ol>
             <br />
-            <h2>Links</h2>
-            <p>Typo is not responsible for the contents of any linked sites. The use of any linked website is at the user's own risk.
-            Changes
-            Typo may revise these Terms of Service for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms of Service. 
-            </p>
         </>
     )
 }

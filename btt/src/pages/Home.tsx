@@ -8,6 +8,7 @@ import {Stack} from "@mui/material";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 
+
 let pointerhelper:number = 0;
 const modes = [30, 45, 60];
 
@@ -149,13 +150,13 @@ const Home = () => {
             {writer && (!result) ? 
                 <Stack direction = "column" justifyContent = "center" alignItems="center" rowGap = "20px">
                     <Stack direction = "row" style = {{fontSize: "20px", padding: "10px"}}>{mode - counter}</Stack>
-                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", backgroundColor: theme.playgroundcolor, borderRadius: "15px"}}>{paraArray.map((x) => {
+                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", backgroundColor: theme.theme.playgroundcolor, borderRadius: "15px"}}>{paraArray.map((x) => {
                         if (x.status === 1){
-                            return <span style={x.pointerStatus ? {color: theme.normal, borderLeft: "1px solid yellow"}: {color: theme.normal, opacity: "0.7"}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: theme.theme.normal, borderLeft: "1px solid yellow"}: {color: theme.theme.normal, opacity: "0.7"}}>{x.character}</span>;
                         }else if(x.status == 2){
-                            return <span style={x.pointerStatus ? {color: theme.right, borderLeft: "1px solid yellow"}: {color: theme.right}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: theme.theme.right, borderLeft: "1px solid yellow"}: {color: theme.theme.right}}>{x.character}</span>;
                         }else{
-                            return <span style={x.pointerStatus ? {color: theme.wrong, borderLeft: "1px solid yellow"}: {color: theme.wrong}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: theme.theme.wrong, borderLeft: "1px solid yellow"}: {color: theme.theme.wrong}}>{x.character}</span>;
                         }
                     })}</p>
                 </Stack>

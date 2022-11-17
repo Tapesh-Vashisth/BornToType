@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserSessionsServlet</servlet-name>
-        <servlet-class>PranavChanges.UserSessionsServlet.UserSessionsServlet</servlet-class>
+        <servlet-class>Main.UserSessionsServlet.UserSessionsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>

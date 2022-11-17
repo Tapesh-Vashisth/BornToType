@@ -15,11 +15,11 @@ function App() {
   const theme = useAppSelector(state => state.theme);
 
   return (
-    <Grid container direction = "column" style = {{minHeight: "100vh", backgroundColor: theme.background, color: theme.fontColor}} alignItems = "center" justifyContent = "space-between">
+    <Grid container direction = "column" style = {{minHeight: "100vh", backgroundColor: theme.theme.background, color: theme.theme.fontColor}} alignItems = "center" justifyContent = "space-between">
       <Grid item sx = {{width: "100%"}}>
         <Navbar/>
       </Grid>
-      <Grid item >
+      <Grid item style = {{padding: "30px"}}>
         <Routes>
           <Route path = "/auth" element = {<Auth />} />
           <Route path = "/" element = {<Home />} />

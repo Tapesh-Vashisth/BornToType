@@ -1,6 +1,6 @@
-package PranavChanges.UserSessionsServlet;
+package Main.UserSessionsServlet;
 
-import PranavChanges.UserSessions.UserSessions;
+import Main.UserSessions.UserSessions;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package PranavChanges.UserSessions;
+package Main.UserSessions;
 public class UserSessions {
     private String username;
     private int wordsPerMin;

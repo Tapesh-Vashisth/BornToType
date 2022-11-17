@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import logger from "redux-logger";
 import themeReducer from "../features/theme/themeSlice";
+import userReducer from "../features/user/userSlice";
 
 const store = configureStore({
     reducer: {
-        theme: themeReducer
-    }
+        theme: themeReducer,
+        user: userReducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger)
 })
 
 
