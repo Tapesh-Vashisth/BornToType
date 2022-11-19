@@ -1,4 +1,4 @@
-package filters;
+package Main.filters;
 
 import java.io.IOException;
 import javax.servlet.*;
@@ -28,7 +28,7 @@ public class corsFilter implements Filter{
  
     // Authorize (allow) all domains to consume the content
     
-    ((HttpServletResponse) servletResponse).setHeader("Access-Control-Allow-Origin", "*");
+    ((HttpServletResponse) servletResponse).setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
     ((HttpServletResponse) servletResponse).setHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
     ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Credentials","true");

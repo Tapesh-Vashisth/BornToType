@@ -3,15 +3,18 @@ import {Stack, Slider, Grid} from "@mui/material";
 import {Button, Typography, MenuItem, Select} from "@mui/material";
 import themeType from "../types/themetype";
 import fontType from "../types/fontType";
+import axios from "axios";
+import { baseURL } from "../middleware/apiList";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {SelectChangeEvent} from "@mui/material/Select";
 import themes from "../features/theme/themes";
-import {setTheme} from "../features/theme/themeSlice";
+import {setAllTheme} from "../features/theme/themeSlice";
 
 
 const Settings = () => {
     const [fontSize, setFontSize] = useState<number>(26);
     const dispatch = useAppDispatch()
+    const user = useAppSelector((state) => state.user);
     const [theme, setThemes] = useState<number>(1);
     const [fontFamily, setFontFamily] = useState<string>("");
     
@@ -29,8 +32,13 @@ const Settings = () => {
         setFontFamily(event.target.value);
     }
 
-    const applyHandler = () => {
-        dispatch(setTheme(themes[theme]));
+    const applyHandler = async () => {
+        dispatch(setAllTheme({theme, fontfamily: fontFamily, fontSize }));
+        try {
+            await axios.post(baseURL + "/settings", {username: user.username, theme: storetheme.theme, fontSize: storetheme.fontSize, fontFamily: storetheme.fontfamily});
+        } catch (err: any) {
+            alert("couldn't save data");
+        }
     }
 
     return (
@@ -45,8 +53,10 @@ const Settings = () => {
                     <Grid item xs = {6}>
                         <Slider
                         size="small"
+                        min=  {20}
+                        max = {30}
                         onChange = {fontSizeHandler}
-                        defaultValue={70}
+                        defaultValue={20}
                         aria-label="Small"
                         valueLabelDisplay="auto"
                         />
@@ -83,7 +93,9 @@ const Settings = () => {
                         label="font-family"
                         onChange={fontHandler}
                         >
-                        <MenuItem value={"cursive"}>cursive</MenuItem>
+                        <MenuItem value={"Sofia"}>Sofia</MenuItem>
+                        <MenuItem value={"Audiowide"}>Audiowide</MenuItem>
+                        <MenuItem value={"Trirong"}>Trirong</MenuItem>
                         </Select>
                     </Grid>
                 </Grid>

@@ -6,4 +6,7 @@ export interface LoginCredentials {
 
 export interface SignupCredentials extends LoginCredentials {
     username: string
+    theme: number
+    fontSize: number
+    fontfamily: string
 }

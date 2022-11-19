@@ -1,6 +1,17 @@
-import themeType from "../../types/themetype";
+import {theme} from "../../types/themetype";
+import "../../styles/contact.css";
 
-const themes: themeType[] = [
+const themes: theme[] = [
+    {
+        background: "#1c1c1c",
+        fontColor: "#F5F5F7",
+        buttonbg: "blue",
+        buttonfg: "green",
+        playgroundcolor: "green",
+        right: "pink",
+        wrong: "red",
+        normal: "black"
+    },
     {
         background: "green",
         fontColor: "#b4b8ad",
@@ -23,5 +34,5 @@ const themes: themeType[] = [
     // },
 ]
 
-
+export const fontfamilies = ["Sofia", "Audiowide", "Trirong"];
 export default themes;

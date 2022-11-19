@@ -84,6 +84,8 @@ const userSlice = createSlice({
         })
         builder.addCase(loginThunk.fulfilled,(state,action)=>{
             const incomingData = JSON.parse(JSON.stringify(action.payload))
+            localStorage.setItem("username",incomingData.username)
+            localStorage.setItem("email",incomingData.email)
             return {...state,username:incomingData.username,email:incomingData.email,islogin:true,loading:false}
         })
         builder.addCase(loginThunk.rejected,(state,action)=>{

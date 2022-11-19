@@ -1,4 +1,4 @@
-export default interface themeType{
+export interface theme{
     background: string
     fontColor: string
     buttonbg: string
@@ -7,4 +7,11 @@ export default interface themeType{
     right: string
     wrong: string
     normal: string
+}
+
+
+export default interface themeType{
+    theme: number
+    fontSize: number
+    fontfamily: string
 }

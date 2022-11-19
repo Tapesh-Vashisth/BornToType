@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Contact from './pages/Contact';
 import Terms from './pages/Terms';
 import Settings from './pages/Settings';
+import themes from "./features/theme/themes";
 import {useAppSelector, useAppDispatch} from "./store/hooks";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './store/store';
@@ -23,7 +24,7 @@ function App() {
   },[])
 
   return (
-    <Grid container direction = "column" style = {{minHeight: "100vh", backgroundColor: theme.theme.background, color: theme.theme.fontColor}} alignItems = "center" justifyContent = "space-between">
+    <Grid container direction = "column" style = {{minHeight: "100vh", backgroundColor: themes[theme.theme].background, color: themes[theme.theme].fontColor, fontFamily: theme.fontfamily}} alignItems = "center" justifyContent = "space-between">
       <Grid item sx = {{width: "100%"}}>
         <Navbar/>
       </Grid>

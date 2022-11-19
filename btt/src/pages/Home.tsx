@@ -6,6 +6,7 @@ import { borderRight } from "@mui/system";
 import {useAppSelector, useAppDispatch} from "../store/hooks";
 import {Stack} from "@mui/material";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import themes from "../features/theme/themes";
 
 
 
@@ -146,17 +147,17 @@ const Home = () => {
     }, [counter, writer])
 
     return (
-        <Box alignItems = "center" justifyContent="center">
+        <Box alignItems = "center" justifyContent="center" style = {{fontSize: theme.fontSize}}>
             {writer && (!result) ? 
                 <Stack direction = "column" justifyContent = "center" alignItems="center" rowGap = "20px">
                     <Stack direction = "row" style = {{fontSize: "20px", padding: "10px"}}>{mode - counter}</Stack>
-                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", backgroundColor: theme.theme.playgroundcolor, borderRadius: "15px"}}>{paraArray.map((x) => {
+                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", backgroundColor: themes[theme.theme].playgroundcolor, borderRadius: "15px"}}>{paraArray.map((x) => {
                         if (x.status === 1){
-                            return <span style={x.pointerStatus ? {color: theme.theme.normal, borderLeft: "1px solid yellow"}: {color: theme.theme.normal, opacity: "0.7"}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: themes[theme.theme].normal, borderLeft: "1px solid yellow", fontSize: theme.fontSize, fontFamily: theme.fontfamily}: {color: themes[theme.theme].normal, opacity: "0.7", fontSize: theme.fontSize, fontFamily: theme.fontfamily}}>{x.character}</span>;
                         }else if(x.status == 2){
-                            return <span style={x.pointerStatus ? {color: theme.theme.right, borderLeft: "1px solid yellow"}: {color: theme.theme.right}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: themes[theme.theme].right, borderLeft: "1px solid yellow", fontSize: theme.fontSize, fontFamily: theme.fontfamily}: {color: themes[theme.theme].right, fontSize: theme.fontSize, fontFamily: theme.fontfamily}}>{x.character}</span>;
                         }else{
-                            return <span style={x.pointerStatus ? {color: theme.theme.wrong, borderLeft: "1px solid yellow"}: {color: theme.theme.wrong}}>{x.character}</span>;
+                            return <span style={x.pointerStatus ? {color: themes[theme.theme].wrong, borderLeft: "1px solid yellow", fontSize: theme.fontSize, fontFamily: theme.fontfamily}: {color: themes[theme.theme].wrong, fontSize: theme.fontSize, fontFamily: theme.fontfamily}}>{x.character}</span>;
                         }
                     })}</p>
                 </Stack>

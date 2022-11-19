@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("hello");
+            
             BufferedReader br = 
                  new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -49,11 +49,24 @@ public class LoginServlet extends HttpServlet {
                 String password = jsonObjectCode.get("password").toString();
                 
                 Statement stmt = conn.createStatement();
-                ResultSet users = stmt.executeQuery("select * from users where email =" + email);
+                ResultSet users = stmt.executeQuery("select * from users where email ='" + email + "'");
+                users.next();
+    
+                System.out.println("hello");
                 JSONObject retr = new JSONObject();
                 retr.put("username", users.getString(1));
                 retr.put("email", users.getString(2));
                 String cmp = users.getString(3);
+
+                ResultSet settings = stmt.executeQuery("select * from user_settings where username ='" + users.getString(1) + "'");
+                settings.next();
+                
+                retr.put("theme", settings.getInt(2));
+                System.out.println("hell");
+                retr.put("fontSize", settings.getInt(3));
+                retr.put("fontfamily", settings.getString(4));
+               
+                System.out.println("hell");
                 if (cmp.equals(password)){
                     response.setStatus(200);
                     response.setContentType("application/json");

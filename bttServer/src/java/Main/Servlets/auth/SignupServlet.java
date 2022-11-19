@@ -44,7 +44,7 @@ public class SignupServlet extends HttpServlet {
                 con = new Connect();
                 con.connect();
                 
-                Auth credentials = new Auth(jsonObjectCode.get("name").toString(), jsonObjectCode.get("email").toString(), jsonObjectCode.get("password").toString());
+                Auth credentials = new Auth(jsonObjectCode.get("username").toString(), jsonObjectCode.get("email").toString(), jsonObjectCode.get("password").toString());
                 System.out.println("hello");
                 
                 boolean first = credentials.validateEmail();
@@ -59,9 +59,17 @@ public class SignupServlet extends HttpServlet {
                     stmt.setString(2, credentials.getEmail());
                     stmt.setString(3, credentials.getPassword());
                     
+                    PreparedStatement stmtsettings =   conn.prepareStatement("insert into user_settings values (?, ?, ?, ?)");
+                    stmtsettings.setString(1, credentials.getUsername());
+                    stmtsettings.setInt(2, Integer.parseInt(jsonObjectCode.get("theme").toString()));
+                    stmtsettings.setInt(3,  Integer.parseInt(jsonObjectCode.get("fontSize").toString()));
+                    stmtsettings.setString(4,  jsonObjectCode.get("fontfamily").toString());
+
                     int couter = stmt.executeUpdate();
-                    
+                    int counter2 = stmtsettings.executeUpdate();
                     System.out.println(couter + " records inserted!");
+                    System.out.println(counter2 + " records inserted!");
+
                 }else{
                     response.sendError(401, "invalid credentials");
                 }

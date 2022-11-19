@@ -1,4 +1,4 @@
-import react, {useState} from "react";
+import react, {useState,useEffect} from "react";
 import { Stack } from "@mui/material";
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,6 +8,9 @@ import { NavLink } from "react-router-dom";
 import ProMenu from "./reusableComponents/ProMenu";
 
 const Navbar = () => {
+    
+
+
     return (    
         <header style = {{padding: "10px 20px"}}>
             <Stack direction = "row" justifyContent = "space-between" alignItems = "center">
