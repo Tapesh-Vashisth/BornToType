@@ -75,6 +75,7 @@ const userSlice = createSlice({
             if (checkEmail && checkUsername){
                 state.email = checkEmail;
                 state.username = checkUsername;
+                state.islogin = true;
             }
         }
     },
