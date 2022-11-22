@@ -9,13 +9,15 @@ import Terms from './pages/Terms';
 import Settings from './pages/Settings';
 import themes from "./features/theme/themes";
 import {useAppSelector, useAppDispatch} from "./store/hooks";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import { userActions } from './features/user/userSlice';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 const Auth = React.lazy(()=>import("./pages/Auth"))
 
 function App() {
+  const auth = useAppSelector((state)=>state.user)
   const dispatch = useDispatch<AppDispatch>()
   const theme = useAppSelector(state => state.theme);
 
@@ -30,7 +32,9 @@ function App() {
       </Grid>
       <Grid item style = {{padding: "30px"}}>
         <Routes>
-          <Route path = "/auth" element = {<Auth />} />
+          <Route path = "/auth" element = {
+            <ProtectedRoutes callback={auth.islogin} redirectTo="/" children={<Auth />} />
+           }/>
           <Route path = "/" element = {<Home />} />
           <Route path = "/profile" />
           <Route path = "/settings" element = {<Settings />} />

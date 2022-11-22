@@ -66,17 +66,31 @@ const userSlice = createSlice({
         setEmail: (state, action: PayloadAction <string>) => {
             state.email = action.payload;
         },
+        setLoginStatusTrue:(state)=>{
+            state.islogin = true;
+        },
         checkIfLoggedIn:(state) => {
             const checkUsername = localStorage.getItem("username")
             const checkEmail = localStorage.getItem("email")
             if (!checkEmail || !checkUsername){
-                return;
+                localStorage.removeItem("username")
+                localStorage.removeItem("email")
+                state.islogin = false;
+                state.email = ""
+                state.username = "";
             }
             if (checkEmail && checkUsername){
                 state.email = checkEmail;
                 state.username = checkUsername;
                 state.islogin = true;
             }
+        },
+        logoutOutUser(state){
+            localStorage.removeItem("username");
+            localStorage.removeItem("email")
+            state.email = "";
+            state.username = "";
+            state.islogin = false;
         }
     },
     extraReducers(builder) {

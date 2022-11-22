@@ -97,7 +97,7 @@ const Settings = () => {
                         <MenuItem value={"Audiowide"}>Audiowide</MenuItem>
                         <MenuItem value={"Trirong"}>Trirong</MenuItem>
                         </Select>
-                    </Grid>
+                    </Grid> 
                 </Grid>
                 
             </Stack>

@@ -8,9 +8,6 @@ import { NavLink } from "react-router-dom";
 import ProMenu from "./reusableComponents/ProMenu";
 
 const Navbar = () => {
-    
-
-
     return (    
         <header style = {{padding: "10px 20px"}}>
             <Stack direction = "row" justifyContent = "space-between" alignItems = "center">

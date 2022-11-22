@@ -1,8 +1,7 @@
 import react, { useState } from "react";
-import { Stack } from '@mui/material';
+import { Stack,Typography } from '@mui/material';
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import axios from "axios";
 import { LoginCredentials, SignupCredentials } from "../types/auth/authtypes";
 import { userActions } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -64,15 +63,18 @@ const Auth = () => {
     }
 
     return (
-        <form action="" method="POST" onSubmit={submithandler}>
-            <Stack alignItems="center" justifyContent="center" spacing={1}>
-                {!login && <TextField type="text" style={{ padding: "0px" }} label="Username" variant="outlined" onChange={(event) => { handlechange(event, setname) }} />}
-                <TextField type="email" style={{ padding: "0px" }} label="Email" variant="outlined" onChange={(event) => { handlechange(event, setemail) }} />
-                <TextField type="password" style={{ padding: "0px" }} label="password" variant="outlined" onChange={(event) => { handlechange(event, setpassword) }} />
-                <Button type="submit" variant="contained">Submit</Button>
-                <Button style={{ textDecoration: "none", color: "black" }} onClick={modeToggler} >{login ? `create a new account?` : `Already a user?`}</Button>
-            </Stack>
-        </form>
+        <div style={{backgroundColor:"white",padding:"4rem"}}>
+            <Typography variant="h5" style={{color:"black",marginBottom:"1rem"}}>{login?"Sign In":"Sign Up"}</Typography>
+            <form action="" method="POST" onSubmit={submithandler}>
+                <Stack alignItems="center" justifyContent="center" spacing={1}>
+                    {!login && <TextField type="text" style={{ padding: "0px" }} label="Username" variant="outlined" onChange={(event) => { handlechange(event, setname) }} />}
+                    <TextField type="email" style={{ padding: "0px" }} label="Email" variant="outlined" onChange={(event) => { handlechange(event, setemail) }} />
+                    <TextField type="password" style={{ padding: "0px" }} label="password" variant="outlined" onChange={(event) => { handlechange(event, setpassword) }} />
+                    <Button type="submit" variant="contained">Submit</Button>
+                    <Button style={{ textDecoration: "none", color: "black" }} onClick={modeToggler} >{login ? `create a new account?` : `Already a user?`}</Button>
+                </Stack>
+            </form>
+        </div>
     )
 }
 
