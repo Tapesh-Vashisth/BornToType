@@ -6,7 +6,7 @@ interface user{
     public String changeEmail(String eEmail);
 }
 
-class User implements user{
+public class UserAccount implements user{
     private String username;
     private String email;
     private String password;
@@ -15,10 +15,12 @@ class User implements user{
     public void setUsername(String eUsername){this.username = eUsername;}
     public void setEmail(String eEmail){this.email = eEmail;}
     public void setPassword(String ePassword){this.password = ePassword;}
+    public void setSettings(UserSettings set){this.settings = set;}
 
     public String getUsername(){return this.username;}
     public String getEmail(){return this.email;}
     public String getPassword(){return this.password;}
+    public UserSettings getSettings(){return this.settings;}
 
     public String changePassword(String ePassword){
         String enteredHashPassword = HashPassword.getHashPassword(ePassword);
@@ -36,19 +38,20 @@ class User implements user{
         return eEmail;
     }
 
-    public User(String eUsername,UserSettings eSettings){
+    public UserAccount(String eUsername,UserSettings eSettings){
         this.username = eUsername;
         this.settings = eSettings;
     }
+    
+    public UserAccount(String email,String passw){
+        this.email = email;
+        this.password = passw;
+    }
 
-    public User(String eUsername,String email,String eEmail,String ePassword){
+    public UserAccount(String eUsername,String email,String eEmail,String ePassword){
         this.username = eUsername;
         this.email = eEmail;
         this.password = ePassword;
         this.settings = new UserSettings();
     }
-}
-
-public class UserAccount {
-    
 }

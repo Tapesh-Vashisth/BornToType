@@ -39,13 +39,22 @@ public class SettingsServlet extends HttpServlet {
                 con.connect();
                 Connection conn = con.getConnector();
                 String username = jsonObjectCode.get("username").toString();
-                int fontSize = Integer.parseInt(jsonObjectCode.get("fontSize").toString());
-                int theme = Integer.parseInt(jsonObjectCode.get("theme").toString());
-                String fontfamily = jsonObjectCode.get("fontFamily").toString();
-                System.out.println("hello");
                 Statement stmt = conn.createStatement();
-                stmt.executeUpdate("update user_settings set fontSize = " + fontSize + ", theme = " + theme + ", fontfamily = '" + fontfamily + "'where username = '" + username + "'");
-                response.setStatus(200);
+                ResultSet rs = stmt.executeQuery("select * from user_settings where username = '" + username + "'");
+                if (rs.next() == true){
+                    JSONObject retr = new JSONObject();
+                    retr.put("fontSize", rs.getInt(3));
+                    retr.put("fontfamily", rs.getString(4));
+                    retr.put("theme", rs.getInt(2));
+                    response.setStatus(200);
+                    response.setContentType("application/json");
+                    
+                    PrintWriter out = response.getWriter();
+                    out.print(retr);
+                    out.flush();
+                }else{
+                    response.sendError(401);
+                }
             }catch (SQLException e){
                 System.out.println(e);
                 response.sendError(403);

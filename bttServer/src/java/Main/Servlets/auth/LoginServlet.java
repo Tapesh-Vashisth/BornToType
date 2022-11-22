@@ -14,18 +14,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import Main.UserPackage.UserAccount;
+import Main.UserPackage.UserSettings;
 
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("hello");
+            System.out.println("GET");
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
             BufferedReader br = 
                  new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -44,41 +45,61 @@ public class LoginServlet extends HttpServlet {
                 con = new Connect();
                 con.connect();
                 
+                
                 Connection conn = con.getConnector();
                 String email = jsonObjectCode.get("email").toString();
                 String password = jsonObjectCode.get("password").toString();
                 
-                Statement stmt = conn.createStatement();
-                ResultSet users = stmt.executeQuery("select * from users where email ='" + email + "'");
-                users.next();
-    
-                System.out.println("hello");
-                JSONObject retr = new JSONObject();
-                retr.put("username", users.getString(1));
-                retr.put("email", users.getString(2));
-                String cmp = users.getString(3);
-
-                ResultSet settings = stmt.executeQuery("select * from user_settings where username ='" + users.getString(1) + "'");
-                settings.next();
+//                creating thhe user 
+                UserAccount user = new UserAccount(email, password);
                 
-                retr.put("theme", settings.getInt(2));
-                System.out.println("hell");
-                retr.put("fontSize", settings.getInt(3));
-                retr.put("fontfamily", settings.getString(4));
-               
-                System.out.println("hell");
-                if (cmp.equals(password)){
-                    response.setStatus(200);
-                    response.setContentType("application/json");
+                
+                Statement stmt = conn.createStatement();
+                
+//                get the user with the given username 
+                ResultSet users = stmt.executeQuery("select * from users where email ='" + user.getEmail() + "'");
+                if (users.next()){
+                    JSONObject retr = new JSONObject();
                     
-                    PrintWriter out = response.getWriter();
-                    out.print(retr);
-                    out.flush();
+                    user.setUsername(users.getString(1));
+                    
+                    retr.put("username", user.getUsername());
+                    retr.put("email", user.getEmail());
+                    String cmp = users.getString(3);
+//                    comparing the passwords 
+                    if (cmp.equals(user.getPassword())){
+                        ResultSet settings = stmt.executeQuery("select * from user_settings where username ='" + users.getString(1) + "'");
+                        if (settings.next() == true){
+                            UserSettings set = new UserSettings(settings.getInt(2), settings.getInt(3), settings.getString(4));
+                            user.setSettings(set);
+                            
+                            retr.put("theme", user.getSettings().getThemeNumber());
+                            retr.put("fontSize", user.getSettings().getFontSize());
+                            retr.put("fontfamily", user.getSettings().getFontFamily());
+                        }else{
+                            retr.put("theme", 0);
+                            retr.put("fontSize", 20);
+                            retr.put("fontfamily", "Sofia");
+                        }
+
+                        con.closeConnection();
+                        response.setStatus(200);
+                        response.setContentType("application/json");
+                        
+                        PrintWriter out = response.getWriter();
+                        out.print(retr);
+                        out.flush();
+                    }else{
+                        con.closeConnection();
+                        response.sendError(401);
+                    }
                 }else{
                     response.sendError(401);
                 }
+                
             }catch (SQLException e){
                 System.out.println(e);
+                response.sendError(403);
             }     
     }
 
