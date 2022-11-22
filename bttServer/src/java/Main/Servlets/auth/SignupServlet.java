@@ -45,12 +45,10 @@ public class SignupServlet extends HttpServlet {
                 con.connect();
                 
                 Auth credentials = new Auth(jsonObjectCode.get("username").toString(), jsonObjectCode.get("email").toString(), jsonObjectCode.get("password").toString());
-                System.out.println("hello");
                 
                 boolean first = credentials.validateEmail();
                 
                 boolean second = credentials.validatePassword();
-                System.out.println("hello");
                 
                 if (first == true && second == true){
                     Connection conn = con.getConnector();

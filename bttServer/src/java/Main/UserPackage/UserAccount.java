@@ -48,9 +48,9 @@ public class UserAccount implements user{
         this.password = passw;
     }
 
-    public UserAccount(String eUsername,String email,String eEmail,String ePassword){
+    public UserAccount(String eUsername, String email, String ePassword){
         this.username = eUsername;
-        this.email = eEmail;
+        this.email = email;
         this.password = ePassword;
         this.settings = new UserSettings();
     }
