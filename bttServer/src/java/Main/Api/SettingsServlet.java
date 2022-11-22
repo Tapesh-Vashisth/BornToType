@@ -20,7 +20,45 @@ public class SettingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("hello");
+            BufferedReader br = 
+                 new BufferedReader(new InputStreamReader(request.getInputStream()));
+w
+            String json = "";
+            if(br != null){
+                json = br.readLine();
+            }
+            Object file = JSONValue.parse(json);
+            
+            System.out.println(json);
+            
+            JSONObject jsonObjectCode = (JSONObject)file;
+            Connect con;
+            
+            try {
+                con = new Connect();
+                con.connect();
+                Connection conn = con.getConnector();
+                String username = jsonObjectCode.get("username").toString();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from user_settings where username = '" + username + "'");
+                if (rs.next() == true){
+                    JSONObject retr = new JSONObject();
+                    retr.put("fontSize", rs.getInt(3));
+                    retr.put("fontfamily", rs.getString(4));
+                    retr.put("theme", rs.getInt(2));
+                    response.setStatus(200);
+                    response.setContentType("application/json");
+                    
+                    PrintWriter out = response.getWriter();
+                    out.print(retr);
+                    out.flush();
+                }else{
+                    response.sendError(401);
+                }
+            }catch (SQLException e){
+                System.out.println(e);
+                response.sendError(403);
+            }
     }
     
     @Override
