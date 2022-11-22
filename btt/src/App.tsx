@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home'
-import Contact from './pages/Contact';
+import Contact from './pages/Contact/Contact';
 import Terms from './pages/Terms';
 import Settings from './pages/Settings';
 import themes from "./features/theme/themes";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import { userActions } from './features/user/userSlice';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import Profile from './pages/Profile/Profile';
 
 const Auth = React.lazy(()=>import("./pages/Auth"))
 
@@ -36,7 +37,10 @@ function App() {
             <ProtectedRoutes callback={auth.islogin} redirectTo="/" children={<Auth />} />
            }/>
           <Route path = "/" element = {<Home />} />
-          <Route path = "/profile" />
+          {/* <Route path = "/profile" element={
+            <ProtectedRoutes callback={!auth.islogin} redirectTo="/auth" children={<Profile />} />
+          } /> */}
+          <Route path="/profile" element={<Profile />} />
           <Route path = "/settings" element = {<Settings />} />
           <Route path = "/contact" element = {<Contact />} />
           <Route path = "/terms" element = {<Terms />} />
