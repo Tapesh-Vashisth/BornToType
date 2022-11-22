@@ -1,5 +1,4 @@
 import {theme} from "../../types/themetype";
-import "../../styles/contact.css";
 
 const themes: theme[] = [
     {

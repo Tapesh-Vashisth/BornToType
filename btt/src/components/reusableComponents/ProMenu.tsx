@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { userActions } from "../../features/user/userSlice";
 import makeStyles from "@mui/styles/makeStyles";
 
-const styles = makeStyles((theme)=>({
+const styles = makeStyles(()=>({
   buttonStyle:{
     textTransform:"none"
   } 
@@ -31,8 +31,6 @@ const ProMenu = () => {
       setAnchorEl(event.currentTarget);
     }
   };
-
-  console.log(auth.islogin)
 
   const handleClose = () => {
     setAnchorEl(null);
