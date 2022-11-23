@@ -1,9 +1,6 @@
 package Main.AuthPackage;
 import java.util.regex.*;;
 
-interface validate{
-    
-}
 
 class Validations {
     public static boolean emailValidation(String eEmail){

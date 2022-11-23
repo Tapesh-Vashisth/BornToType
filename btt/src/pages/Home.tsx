@@ -7,6 +7,8 @@ import {useAppSelector, useAppDispatch} from "../store/hooks";
 import {Stack} from "@mui/material";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import themes from "../features/theme/themes";
+import axios from "axios";
+import { baseURL } from "../middleware/apiList";
 
 
 
@@ -14,6 +16,7 @@ let pointerhelper:number = 0;
 const modes = [30, 45, 60];
 
 const Home = () => {
+    const user = useAppSelector((state) => state.user);
     const theme = useAppSelector(state => state.theme);
     const [mode, setmode] = useState<number>(5);
     const [writer, setwriter] = useState<boolean>(false);
@@ -119,6 +122,13 @@ const Home = () => {
         }
     }, [writer]);
 
+    const saveData = async (wpm: number, accuracy: number, timingmode: number) => {
+        try {
+            await axios.post(baseURL + "/postUserSession", {username: user.username, wpm, accuracy, timingmode});
+        } catch (err: any) {
+            alert("couldn't save data");
+        }
+    }
 
     useEffect(() => {
         if (writer){
@@ -127,7 +137,6 @@ const Home = () => {
                 if (counter < mode){
                     setcounter((prev) => prev + 1);
                 }else{
-                    console.log(correctCharacters, totalTyped);
                     let accurate = +(((correctCharacters*1.0)/totalTyped) * 100).toFixed(2);
                     let minutes = counter/60;
                     let wpmcal = +(((correctCharacters*1.0)/5)/minutes).toFixed(2);
@@ -136,7 +145,10 @@ const Home = () => {
                     setpointer(0);
                     clearInterval(counterInterval);
                     setwriter(false);
-                    setresult(true);         
+                    setresult(true);
+                    if (user.islogin){
+                        saveData(Math.floor(wpmcal), accurate, mode);
+                    } 
                 }
             }, 1000);
         }
@@ -151,7 +163,7 @@ const Home = () => {
             {writer && (!result) ? 
                 <Stack direction = "column" justifyContent = "center" alignItems="center" rowGap = "20px">
                     <Stack direction = "row" style = {{fontSize: "20px", padding: "10px"}}>{mode - counter}</Stack>
-                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", backgroundColor: themes[theme.theme].playgroundcolor, borderRadius: "15px"}}>{paraArray.map((x) => {
+                    <p onClick={writerToggler} className="mainplayground" style = {{width: "70%", textAlign: "justify", margin: "auto", padding: "35px", fontSize: "20px", /* backgroundColor: themes[theme.theme].playgroundcolor, */ borderRadius: "15px"}}>{paraArray.map((x) => {
                         if (x.status === 1){
                             return <span style={x.pointerStatus ? {color: themes[theme.theme].normal, borderLeft: "1px solid yellow", fontSize: theme.fontSize, fontFamily: theme.fontfamily}: {color: themes[theme.theme].normal, opacity: "0.7", fontSize: theme.fontSize, fontFamily: theme.fontfamily}}>{x.character}</span>;
                         }else if(x.status == 2){
@@ -170,7 +182,7 @@ const Home = () => {
                             )
                         })}
                     </Stack>
-                    <p onClick={writerToggler} style = {{textAlign: "center", margin: "auto", fontSize: "20px", backgroundColor: "grey", borderRadius: "15px", padding: "30px"}}>click here to start</p>
+                    <p onClick={writerToggler} style = {{textAlign: "center", margin: "auto", fontSize: "20px", backgroundColor: themes[theme.theme].playgroundcolor, borderRadius: "15px", padding: "30px"}}>click here to start</p>
                 </Stack>
                 :
                 <Stack direction = "column" spacing = "20px">

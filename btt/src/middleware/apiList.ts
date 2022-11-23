@@ -6,6 +6,10 @@ export const userAuthApiConfig = {
     logout:baseURL + "/logout"
 }
 
+export const themeApiConfig = {
+    fetch: baseURL + "/getsettings"
+}
+
 export const userSessionsApiConfig = {
     postUserSessionApi:"/postUserSession"
 } 

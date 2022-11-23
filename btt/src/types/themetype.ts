@@ -13,5 +13,6 @@ export interface theme{
 export default interface themeType{
     theme: number
     fontSize: number
-    fontfamily: string
+    fontfamily: string,
+    error:string | null
 }

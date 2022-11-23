@@ -1,13 +1,10 @@
-h1,
-h2,
-h3,
-p{
+.contact{
     font-family: sans-serif;
     color: #f5f5f7;
     padding-top: 0.25rem;
     padding-left: 0.5rem;
 }
-p{
+.special{
     margin-left: 2em;
 }
 ul{
@@ -19,12 +16,8 @@ li{
     padding-top: 0.25rem;
     font: 1.25em sans-serif;
 }
-body{
-    color: #f5f5f7 ;
-    background-color: #1c1c1c;
-}
 
-a{
+a.selected{
     text-decoration: none;
     color: inherit;
     margin-left: 0.4em;

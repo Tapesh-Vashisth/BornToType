@@ -13,16 +13,20 @@
         <servlet-class>Main.Api.SettingsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteUserServlet</servlet-name>
-        <servlet-class>DeleteUserServlet.java</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>deleteUserServlet</servlet-name>
         <servlet-class>Main.Api.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>Main.Api.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSettingsServlet</servlet-name>
+        <servlet-class>Main.Api.getSettingsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSessionsServlet</servlet-name>
+        <servlet-class>Main.UserSessionsServlet.getSessionsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
@@ -45,16 +49,20 @@
         <url-pattern>/settings</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteUserServlet</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>deleteUserServlet</servlet-name>
         <url-pattern>/api/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSettingsServlet</servlet-name>
+        <url-pattern>/getsettings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSessionsServlet</servlet-name>
+        <url-pattern>/getsessions</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

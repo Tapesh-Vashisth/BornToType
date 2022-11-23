@@ -35,7 +35,7 @@ const Settings = () => {
     const applyHandler = async () => {
         dispatch(setAllTheme({theme, fontfamily: fontFamily, fontSize }));
         try {
-            await axios.post(baseURL + "/settings", {username: user.username, theme: storetheme.theme, fontSize: storetheme.fontSize, fontFamily: storetheme.fontfamily});
+            await axios.post(baseURL + "/settings", {username: user.username, theme: theme, fontSize: fontSize, fontFamily: fontFamily});
         } catch (err: any) {
             alert("couldn't save data");
         }

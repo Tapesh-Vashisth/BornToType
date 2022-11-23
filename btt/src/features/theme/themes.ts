@@ -2,14 +2,14 @@ import {theme} from "../../types/themetype";
 
 const themes: theme[] = [
     {
-        background: "#1c1c1c",
-        fontColor: "#F5F5F7",
+        background: "#1c1b1d",
+        fontColor: "#DEAF9D",
         buttonbg: "blue",
         buttonfg: "green",
-        playgroundcolor: "green",
-        right: "pink",
-        wrong: "red",
-        normal: "black"
+        playgroundcolor: "#4D3D3D",
+        right: "#F2EFED",
+        wrong: "#BF616A",
+        normal: "#DEAF9D"
     },
     {
         background: "green",

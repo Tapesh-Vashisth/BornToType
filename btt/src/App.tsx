@@ -14,6 +14,7 @@ import { AppDispatch } from './store/store';
 import { userActions } from './features/user/userSlice';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Profile from './pages/Profile/Profile';
+import { themeThunks } from './features/theme/themeSlice';
 
 const Auth = React.lazy(()=>import("./pages/Auth"))
 
@@ -22,8 +23,20 @@ function App() {
   const dispatch = useDispatch<AppDispatch>()
   const theme = useAppSelector(state => state.theme);
 
+  const getThemesFromDB = async (user:{username:string}) => {
+    const loadThemes = await dispatch(themeThunks.fetchThemeThunk(user))
+    if (!themeThunks.fetchThemeThunk.fulfilled.match(loadThemes)){
+      alert("Couldn't load theme data!")
+    }
+  }
+
   useEffect(()=>{
     dispatch(userActions.actions.checkIfLoggedIn())
+    if (localStorage.getItem("username")){
+      console.log("ha")
+      const user = {username:localStorage.getItem("username")!}
+      getThemesFromDB(user)
+    }
   },[])
 
   return (
@@ -37,10 +50,9 @@ function App() {
             <ProtectedRoutes callback={auth.islogin} redirectTo="/" children={<Auth />} />
            }/>
           <Route path = "/" element = {<Home />} />
-          {/* <Route path = "/profile" element={
+          <Route path = "/profile" element={
             <ProtectedRoutes callback={!auth.islogin} redirectTo="/auth" children={<Profile />} />
-          } /> */}
-          <Route path="/profile" element={<Profile />} />
+          } />
           <Route path = "/settings" element = {<Settings />} />
           <Route path = "/contact" element = {<Contact />} />
           <Route path = "/terms" element = {<Terms />} />

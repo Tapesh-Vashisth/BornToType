@@ -3,11 +3,14 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import {Stack} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { userActions } from "../../features/user/userSlice";
 import makeStyles from "@mui/styles/makeStyles";
+import themes from "../../features/theme/themes";
+
 
 const styles = makeStyles(()=>({
   buttonStyle:{
@@ -17,6 +20,7 @@ const styles = makeStyles(()=>({
 
 
 const ProMenu = () => {
+  const theme = useAppSelector((state) => state.theme)
   const menuStyles = styles()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate()
@@ -25,12 +29,19 @@ const ProMenu = () => {
   const auth = useAppSelector((state)=>state.user)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (!auth.islogin){
+      setAnchorEl(event.currentTarget);
       navigate("/auth",{replace:true})
     }
     else{
       setAnchorEl(event.currentTarget);
     }
   };
+
+  const handleProfileClick = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setAnchorEl(null);
+    navigate("/profile")
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -57,33 +68,32 @@ const ProMenu = () => {
         onClick={handleClick}
         style = {{}}
       >
-        <AccountCircleIcon style = {{color: "white"}}/>
+        <AccountCircleIcon style = {{color: themes[theme.theme].fontColor}} />
       </Button>
-      <Menu
-        id="fade-menu"
-        MenuListProps={{
-          'aria-labelledby': 'fade-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseOut}
-        TransitionComponent={Fade}
-      >
+      
         {auth.islogin &&
-          <>
-            <MenuItem key={1} >
-              <Button className={menuStyles.buttonStyle} type="button" onClick={handleClick}>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              'aria-labelledby': 'fade-button',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleCloseOut}
+            TransitionComponent={Fade}
+          > 
+            <Stack key={1} >
+              <Button className={menuStyles.buttonStyle} type="button" onClick={handleProfileClick}>
                 Profile
               </Button>
-            </MenuItem>
-            <MenuItem key={2}>
+            </Stack>
+            <Stack key={2}>
               <Button className={menuStyles.buttonStyle} type="button" onClick={handleLogout}>
                 Logout
               </Button>
-            </MenuItem>
-          </>
+            </Stack>
+          </Menu>
         }
-      </Menu>
     </div>
   );
 }

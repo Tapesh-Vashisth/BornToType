@@ -82,6 +82,7 @@ public class UserSessionsServlet extends HttpServlet {
             Connect con = new Connect();
             con.connect();
             Connection conn = con.getConnector();
+
             Statement stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery("SELECT max(sessID) from session_history");
             
@@ -91,6 +92,8 @@ public class UserSessionsServlet extends HttpServlet {
                 id = rs.getInt(1) + 1;
             }
             
+            System.out.println("hello");
+            
             UserSessions newSess = new UserSessions(
                     jsonObjectValues.get("username").toString(),
                     Integer.parseInt(jsonObjectValues.get("wpm").toString()),
@@ -98,6 +101,8 @@ public class UserSessionsServlet extends HttpServlet {
                     Double.parseDouble(jsonObjectValues.get("timingmode").toString())
             );
             
+            System.out.println("hell");
+
             PreparedStatement sendStmt = conn.prepareStatement("INSERT INTO session_history VALUES (?,?,?,?,?)");
             sendStmt.setInt(1,id);
             

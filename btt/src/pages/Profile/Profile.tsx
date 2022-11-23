@@ -34,8 +34,6 @@ const Profile = () => {
         second:false
     })
 
-    console.log(buttonHandling)
-
     const infoButtonHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setButtonHandling({first:true,second:false});
