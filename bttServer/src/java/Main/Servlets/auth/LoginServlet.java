@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
                 
                 Statement stmt = conn.createStatement();
                 
-//                get the user with the given username 
+//                get the user with the given email0
                 ResultSet users = stmt.executeQuery("select * from users where email ='" + user.getEmail() + "'");
                 if (users.next()){
                     JSONObject retr = new JSONObject();

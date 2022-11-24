@@ -1,4 +1,4 @@
-package Main.Servlets.auth;
+    package Main.Servlets.auth;
 
 import Main.database.Connect;
 import Main.AuthPackage.Auth;

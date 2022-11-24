@@ -1,8 +1,12 @@
 import react from "react";
+import themes from "../features/theme/themes";
+import { useAppSelector } from "../store/hooks";
 
 const Terms = () => {
+    const theme = useAppSelector((state) => state.theme);
+    
     return (
-        <>
+        <div style = {{color: themes[theme.theme].fontColor}}>
         
             <header className="header" style={{}}>
                 <img className="logo" src="images/typo_dot_com_logo.png" alt="logo" />
@@ -37,7 +41,7 @@ const Terms = () => {
                 <li>violates any person's right to privacy or publicity, or otherwise solicits, collects, or publishes data, including personal information and login information, about other Users without consent or for unlawful purposes in violation of any applicable international, federal, state, or local law, statute, ordinance.</li>
             </ol>
             <br />
-        </>
+        </div>
     )
 }
 

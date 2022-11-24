@@ -29,10 +29,9 @@ const ProMenu = () => {
   const auth = useAppSelector((state)=>state.user)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (!auth.islogin){
-      setAnchorEl(event.currentTarget);
+      setAnchorEl(null);
       navigate("/auth",{replace:true})
-    }
-    else{
+    }else{
       setAnchorEl(event.currentTarget);
     }
   };
@@ -50,10 +49,11 @@ const ProMenu = () => {
   const handleCloseOut = () => {
     setAnchorEl(null);
   };
-
+  
   const handleLogout = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(userActions.actions.logoutOutUser());
+    setAnchorEl(null);
     window.location.reload()
   }
 
@@ -82,13 +82,13 @@ const ProMenu = () => {
             onClose={handleCloseOut}
             TransitionComponent={Fade}
           > 
-            <Stack key={1} >
-              <Button className={menuStyles.buttonStyle} type="button" onClick={handleProfileClick}>
+            <Stack key={1} style = {{color: themes[theme.theme].fontColor, backgroundColor: themes[theme.theme].playgroundcolor}}>
+              <Button className={menuStyles.buttonStyle} type="button" style = {{color: themes[theme.theme].fontColor}} onClick={handleProfileClick}>
                 Profile
               </Button>
             </Stack>
-            <Stack key={2}>
-              <Button className={menuStyles.buttonStyle} type="button" onClick={handleLogout}>
+            <Stack key={2} style = {{color: themes[theme.theme].fontColor, backgroundColor: themes[theme.theme].playgroundcolor}}>
+              <Button className={menuStyles.buttonStyle} style = {{color: themes[theme.theme].fontColor}} type="button" onClick={handleLogout}>
                 Logout
               </Button>
             </Stack>

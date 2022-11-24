@@ -16,7 +16,7 @@ public class UserSettings {
     //Pending
     public UserSettings(){
         this.themeNumber = 0;
-        this.fontSize = 16;
+        this.fontSize = 20;
         this.fontFamily = "Sofia";
     }
 

@@ -10,13 +10,13 @@ import {SelectChangeEvent} from "@mui/material/Select";
 import themes from "../features/theme/themes";
 import {setAllTheme} from "../features/theme/themeSlice";
 
-
 const Settings = () => {
     const [fontSize, setFontSize] = useState<number>(26);
+    const themest = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.user);
     const [theme, setThemes] = useState<number>(1);
-    const [fontFamily, setFontFamily] = useState<string>("");
+    const [fontFamily, setFontFamily] = useState<string>("Sofia");
     
     const storetheme = useAppSelector((state) => state.theme);
     
@@ -52,6 +52,7 @@ const Settings = () => {
                     </Grid>
                     <Grid item xs = {6}>
                         <Slider
+                        style = {{color: themes[themest.theme].fontColor}}
                         size="small"
                         min=  {20}
                         max = {30}
@@ -71,6 +72,7 @@ const Settings = () => {
                     <Grid item xs = {6}>
                         <Select
                         sx = {{width: "100%"}}
+                        style = {{color: themes[themest.theme].fontColor}}
                         value={theme.toString()}
                         label="theme"
                         onChange={themeHandler}
@@ -89,6 +91,7 @@ const Settings = () => {
                     <Grid item xs = {6}>
                         <Select
                         sx = {{width: "100%"}}
+                        style = {{color: themes[themest.theme].fontColor}}
                         value={fontFamily}
                         label="font-family"
                         onChange={fontHandler}
@@ -101,7 +104,7 @@ const Settings = () => {
                 </Grid>
                 
             </Stack>
-            <Button onClick={applyHandler}>Apply Settings</Button>
+            <Button onClick={applyHandler} style = {{color: themes[themest.theme].wrong}}>Apply Settings</Button>
         </Stack>
     )
 }

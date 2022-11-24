@@ -67,7 +67,7 @@ public class getSessionsServlet extends HttpServlet {
             out.flush();
         }
         catch(SQLException e){
-            System.out.println(e);
+            response.sendError(403);
         }
     }
 

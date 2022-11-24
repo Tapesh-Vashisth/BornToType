@@ -1,5 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import React from 'react'
+import { Stack } from "@mui/material";
 import commonProfileStyles from "../../commonProfileStyles";
 
 const ProfileContainer = (props:{
@@ -8,10 +9,10 @@ const ProfileContainer = (props:{
 }) => {
     const commonProfStyles = commonProfileStyles()
     return (
-        <Container component="section" className={`${commonProfStyles.flexColumn}`}>
+        <Stack component="section" direction = "column" spacing = {1}>
             <h1>{props.heading}</h1>
             {props.children}
-        </Container>
+        </Stack>
     )
 }
 

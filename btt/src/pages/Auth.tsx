@@ -68,11 +68,11 @@ const Auth = () => {
             <Typography variant="h5" style={{color: themes[theme.theme].fontColor ,marginBottom:"1rem"}}>{login?"Sign In":"Sign Up"}</Typography>
             <form action="" method="POST" onSubmit={submithandler}>
                 <Stack alignItems="center" justifyContent="center" spacing={1}>
-                    {!login && <TextField type="text" style={{ padding: "0px", color: themes[theme.theme].fontColor }} label="Username" variant="outlined" onChange={(event) => { handlechange(event, setname) }} />}
-                    <TextField type="email" style={{ padding: "0px", color: "blue" }} label="Email" variant="outlined" onChange={(event) => { handlechange(event, setemail) }} />
-                    <TextField type="password" style={{ padding: "0px", color: themes[theme.theme].fontColor }} label="password" variant="outlined" onChange={(event) => { handlechange(event, setpassword) }} />
-                    <Button type="submit" variant="contained">Submit</Button>
-                    <Button style={{ textDecoration: "none", color: "black" }} onClick={modeToggler} >{login ? `create a new account?` : `Already a user?`}</Button>
+                    {!login && <input type="text" style={{padding: "10px", color: themes[theme.theme].fontColor, width: "100%", backgroundColor: themes[theme.theme].background, fontSize: "20px", border: "1px solid grey", borderRadius: "5px"}} onChange={(event) => { handlechange(event, setname) }} placeholder = "username"/>}
+                    <input type="email" style={{ padding: "10px", color: themes[theme.theme].fontColor, width: "100%", backgroundColor: themes[theme.theme].background, fontSize: "20px", border: "1px solid grey", borderRadius: "5px"}} onChange={(event) => { handlechange(event, setemail) }} placeholder = "email"/>
+                    <input type="password" style={{padding: "10px", color: themes[theme.theme].fontColor, width: "100%", backgroundColor: themes[theme.theme].background, fontSize: "20px", border: "1px solid grey", borderRadius: "5px"}} onChange={(event) => { handlechange(event, setpassword) }} placeholder = "password"/>
+                    <Button type="submit" variant="contained" style = {{backgroundColor: themes[theme.theme].playgroundcolor, color: themes[theme.theme].fontColor}}>Submit</Button>
+                    <Button style={{ textDecoration: "none", color: themes[theme.theme].fontColor }} onClick={modeToggler} >{login ? `create a new account?` : `Already a user?`}</Button>
                 </Stack>
             </form>
         </div>

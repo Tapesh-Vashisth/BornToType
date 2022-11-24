@@ -38,7 +38,7 @@ class LoginCredentials {
 
 public class Auth extends LoginCredentials{
     private String username;
-
+  
     public void setUsername(String eUsername){this.username = eUsername;}
     public String getUsername(){return this.username;}
 

@@ -3,7 +3,8 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     flexRow:{
         display:"flex",
-        flexDirection:"row"
+        flexDirection:"row",
+        justifyContent: "space-between"
     },
     flexColumn:{
         display:"flex",

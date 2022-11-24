@@ -20,15 +20,12 @@ const SessionsContainer = (props:{
     return (
         <div className={`${commonProfStyles.flexRow}`}>
             <div className={sessionsStyles.attributesContainer}>
-                <h4>Word Per Minute</h4>
                 <p>{props.wpm}</p>
             </div>
             <div className={sessionsStyles.attributesContainer}>
-                <h4>{"Accuracy"}</h4>
                 <p>{props.accuracy}%</p>
             </div>
             <div>
-                <h4>{"Timing Mode"}</h4>
                 <p>{props.timingMode} sec</p>
             </div>
         </div>
